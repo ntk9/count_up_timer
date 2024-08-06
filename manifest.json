@@ -1,0 +1,8 @@
+{
+  "domain": "count_up_timer",
+  "name": "Count Up Timer",
+  "version": "1.0",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@your_github_username"]
+}

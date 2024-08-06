@@ -1,0 +1,47 @@
+import time
+from datetime import timedelta
+import homeassistant.helpers.config_validation as cv
+from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.const import CONF_NAME
+from homeassistant.helpers.entity import Entity
+
+PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
+    cv.string: cv.string,
+})
+
+def setup_platform(hass, config, add_entities, discovery_info=None):
+    name = config.get(CONF_NAME)
+    add_entities([CountUpTimer(name)], True)
+
+class CountUpTimer(Entity):
+    def __init__(self, name):
+        self._name = name
+        self._state = 0
+        self._start_time = None
+        self._running = False
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def state(self):
+        return self._state
+
+    def start(self):
+        if not self._running:
+            self._start_time = time.time() - self._state
+            self._running = True
+
+    def pause(self):
+        if self._running:
+            self._state = time.time() - self._start_time
+            self._running = False
+
+    def stop(self):
+        self._state = 0
+        self._running = False
+
+    def update(self):
+        if self._running:
+            self._state = time.time() - self._start_time
