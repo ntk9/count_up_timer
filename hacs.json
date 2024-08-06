@@ -1,0 +1,8 @@
+{
+  "name": "Count Up Timer",
+  "content_in_root": false,
+  "domains": ["sensor"],
+  "country": "US",
+  "homeassistant": "2021.6.0",
+  "render_readme": true
+}
